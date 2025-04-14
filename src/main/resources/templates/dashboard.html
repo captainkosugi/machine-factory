@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Панель управления</title>
+  <!-- Подключение стилей -->
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/dashboard.css">
+  <link rel="stylesheet" href="/styles/forms.css">
+  <link rel="stylesheet" href="/styles/tables.css">
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="header-left">
+      <button id="sidebar-toggle" class="sidebar-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <h1><a th:href="@{/}">Машиностроительный завод</a></h1>
+    </div>
+  </header>
+    <div class="main-container">
+      <div th:replace="fragments :: sidebar"></div>
+      <main id="main-content">
+        <section id="dashboard" class="active-section">
+        <div class="section-header">
+          <h2>Панель управления</h2>
+          <p class="section-description">Обзор ключевых показателей и статистики завода</p>
+        </div>
+
+        <div class="dashboard-cards">
+          <div class="card">
+            <div class="card-header">
+              <h3>Сотрудники</h3>
+            </div>
+            <div class="card-content">
+              <p class="count">245</p>
+              <p class="card-description">+12 за последний месяц</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Оборудование</h3>
+            </div>
+            <div class="card-content">
+              <p class="count">87</p>
+              <p class="card-description">+4 за последний месяц</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Продукция</h3>
+            </div>
+            <div class="card-content">
+              <p class="count">32</p>
+              <p class="card-description">+2 за последний месяц</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Партнеры</h3>
+            </div>
+            <div class="card-content">
+              <p class="count">54</p>
+              <p class="card-description">+8 за последний месяц</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-charts">
+          <div class="chart-container">
+            <h3>Производство за последние 6 месяцев</h3>
+            <div class="chart">
+              <canvas id="production-chart"></canvas>
+            </div>
+          </div>
+          <div class="chart-container">
+            <h3>Распределение сотрудников по отделам</h3>
+            <div class="chart">
+              <canvas id="staff-chart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+      </main>
+    </div>
+</div>
+<script src="/script/navigation.js"></script>
+<script src="/script/modals.js"></script>
+<script src="/script/main.js"></script>
+</body>

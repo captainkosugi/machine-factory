@@ -1,0 +1,89 @@
+<!-- Модальное окно для сотрудников -->
+<div id="modal-overlay" class="modal-overlay">
+    <div id="employee-modal" class="modal">
+        <div class="modal-header">
+            <h3>Добавить сотрудника</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="employee-form">
+                <div class="form-group">
+                    <label for="employee-name">ФИО</label>
+                    <input type="text" id="employee-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="employee-position">Должность</label>
+                    <input type="text" id="employee-position" required>
+                </div>
+                <div class="form-group">
+                    <label for="employee-department">Отдел</label>
+                    <select id="employee-department" required>
+                        <option value="">Выберите отдел</option>
+                        <option value="Производство">Производство</option>
+                        <option value="Инженерия">Инженерия</option>
+                        <option value="Администрация">Администрация</option>
+                        <option value="Логистика">Логистика</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="employee-salary">Зарплата</label>
+                    <input type="number" id="employee-salary" required>
+                </div>
+                <div class="form-group">
+                    <label for="employee-date">Дата приема</label>
+                    <input type="date" id="employee-date" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn">Сохранить</button>
+                    <button type="button" class="secondary-btn cancel-modal">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для оборудования -->
+<div id="equipment-modal" class="modal">
+    <div class="modal-header">
+        <h3>Добавить оборудование</h3>
+        <button class="close-modal">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="equipment-form">
+            <div class="form-group">
+                <label for="equipment-name">Наименование</label>
+                <input type="text" id="equipment-name" required>
+            </div>
+            <div class="form-group">
+                <label for="equipment-type">Тип</label>
+                <input type="text" id="equipment-type" required>
+            </div>
+            <div class="form-group">
+                <label for="equipment-workshop">Цех</label>
+                <select id="equipment-workshop" required>
+                    <option value="">Выберите цех</option>
+                    <option value="Цех №1">Цех №1</option>
+                    <option value="Цех №2">Цех №2</option>
+                    <option value="Цех №3">Цех №3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="equipment-status">Статус</label>
+                <select id="equipment-status" required>
+                    <option value="">Выберите статус</option>
+                    <option value="active">Активен</option>
+                    <option value="maintenance">На обслуживании</option>
+                    <option value="broken">Неисправен</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="equipment-date">Дата установки</label>
+                <input type="date" id="equipment-date" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="primary-btn">Сохранить</button>
+                <button type="button" class="secondary-btn cancel-modal">Отмена</button>
+            </div>
+        </form>
+    </div>
+</div>

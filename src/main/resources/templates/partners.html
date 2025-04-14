@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Партнеры</title>
+    <!-- Подключение стилей -->
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/dashboard.css">
+    <link rel="stylesheet" href="/styles/forms.css">
+    <link rel="stylesheet" href="/styles/tables.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <h1><a th:href="@{/}">Машиностроительный завод</a></h1>
+            </div>
+        </header>
+        <div class="main-container">
+            <div th:replace="fragments :: sidebar"></div>
+            <main id="main-content">
+                <section id="partners" class="active-section">
+                    <div class="section-header">
+                        <h2>Партнеры</h2>
+                        <p class="section-description">Управление поставщиками и клиентами</p>
+                    </div>
+
+                    <div class="controls">
+                        <div class="search-container">
+                            <input type="text" id="partner-search" placeholder="Поиск партнеров...">
+                            <button class="search-btn">Поиск</button>
+                        </div>
+                        <button id="add-partner" class="primary-btn">Добавить партнера</button>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="partners-table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Наименование</th>
+                                <th>Тип</th>
+                                <th>Контактное лицо</th>
+                                <th>Телефон</th>
+                                <th>Email</th>
+                                <th>Действия</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>ООО "ТехноКомплект"</td>
+                                <td>Поставщик</td>
+                                <td>Смирнов А.В.</td>
+                                <td>+7 (495) 123-45-67</td>
+                                <td>info@techno.ru</td>
+                                <td>
+                                    <button class="action-btn edit">Изменить</button>
+                                    <button class="action-btn delete">Удалить</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>АО "МашСтрой"</td>
+                                <td>Клиент</td>
+                                <td>Иванова Е.П.</td>
+                                <td>+7 (812) 765-43-21</td>
+                                <td>sales@mashstroy.ru</td>
+                                <td>
+                                    <button class="action-btn edit">Изменить</button>
+                                    <button class="action-btn delete">Удалить</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>ИП Козлов С.Н.</td>
+                                <td>Поставщик</td>
+                                <td>Козлов С.Н.</td>
+                                <td>+7 (499) 555-66-77</td>
+                                <td>kozlov@mail.ru</td>
+                                <td>
+                                    <button class="action-btn edit">Изменить</button>
+                                    <button class="action-btn delete">Удалить</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>ООО "АгроТехника"</td>
+                                <td>Клиент</td>
+                                <td>Петров И.С.</td>
+                                <td>+7 (383) 222-33-44</td>
+                                <td>agro@tech.ru</td>
+                                <td>
+                                    <button class="action-btn edit">Изменить</button>
+                                    <button class="action-btn delete">Удалить</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>ЗАО "МеталлПром"</td>
+                                <td>Поставщик</td>
+                                <td>Сидорова А.А.</td>
+                                <td>+7 (343) 888-99-00</td>
+                                <td>metall@prom.ru</td>
+                                <td>
+                                    <button class="action-btn edit">Изменить</button>
+                                    <button class="action-btn delete">Удалить</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <script src="/script/navigation.js"></script>
+    <script src="/script/modals.js"></script>
+    <script src="/script/main.js"></script>
+</body>
+</html>
