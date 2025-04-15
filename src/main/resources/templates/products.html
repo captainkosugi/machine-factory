@@ -37,6 +37,55 @@
                             <button class="search-btn">Поиск</button>
                         </div>
                         <button id="add-product" class="primary-btn">Добавить продукцию</button>
+
+                        <div id="modal-overlay" class="modal-overlay">
+                            <div id="product-modal" class="modal">
+                                <div class="modal-header">
+                                    <h3>Добавить продукцию</h3>
+                                    <button class="close-modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="product-form">
+                                        <div class="form-group">
+                                            <label for="product-name">Наименование</label>
+                                            <input type="text" id="product-name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="product-category">Категория</label>
+                                            <select id="product-category" required>
+                                                <option value="">Выберите категорию</option>
+                                                <option value="Редукторы">Редукторы</option>
+                                                <option value="Насосы">Насосы</option>
+                                                <option value="Гидравлика">Гидравлика</option>
+                                                <option value="Трансмиссия">Трансмиссия</option>
+                                                <option value="Соединители">Соединители</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="product-price">Цена</label>
+                                            <input type="number" id="product-price" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="product-count">Количество</label>
+                                            <input type="number" id="product-count" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="product-status">Статус</label>
+                                            <select id="product-status" required>
+                                                <option value="">Выберите статус</option>
+                                                <option value="active">В наличии</option>
+                                                <option value="broken">Нет в наличии</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="primary-btn">Сохранить</button>
+                                            <button type="button" class="secondary-btn cancel-modal">Отмена</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="table-container">
@@ -121,7 +170,6 @@
         </div>
     </div>
     <script src="/script/navigation.js"></script>
-    <script src="/script/modals.js"></script>
-    <script src="/script/main.js"></script>
+    <script src="/script/modals/products_modal.js"></script>
 </body>
 </html>
