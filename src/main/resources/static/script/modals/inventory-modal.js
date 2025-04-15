@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Получаем элементы модального окна
     const modalOverlay = document.getElementById("modal-overlay");
     const inventoryModal = document.getElementById("inventory-modal");
     const addInventoryButton = document.getElementById("add-inventory");

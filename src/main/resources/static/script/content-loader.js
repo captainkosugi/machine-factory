@@ -1,4 +1,4 @@
-// charts.js
+
 function initCharts() {
     const ctx = document.getElementById('production-chart')?.getContext('2d');
     if (ctx) {

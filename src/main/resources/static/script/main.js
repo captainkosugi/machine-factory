@@ -1,8 +1,6 @@
 import { Chart } from "@/components/ui/chart";
 
-// Инициализация графиков
 function initCharts() {
-    // График производства
     const productionCtx = document.getElementById("production-chart");
     if (productionCtx) {
         new Chart(productionCtx, {
@@ -37,7 +35,7 @@ function initCharts() {
         });
     }
 
-    // График распределения сотрудников
+
     const staffCtx = document.getElementById("staff-chart");
     if (staffCtx) {
         new Chart(staffCtx, {
@@ -64,7 +62,7 @@ function initCharts() {
     }
 }
 
-// Вызов инициализации графиков при загрузке страницы
+
 document.addEventListener("DOMContentLoaded", () => {
     initCharts();
 });
