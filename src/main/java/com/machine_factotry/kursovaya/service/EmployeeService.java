@@ -14,18 +14,22 @@ public class EmployeeService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    private static final String GET_EMPLOYEES_DATA_QUERY =
+            """
+            select
+                e.employee_id as id,
+                e.employee_name as name,
+                e.employee_position as position,
+                d.department_name as dp_name,
+                e.salary as salary,
+                to_char((e.hire_date)::date, 'DD.MM.YYYY') as ddate
+            from employees e
+            join departments d on d.id = e.department_it
+            order by ddate desc
+            """;
+
     public List<Map<String, Object>> getEmployeesData() {
-        String query = "select \n" +
-                "\te.employee_id as id, \n" +
-                "\te.employee_name as name, \n" +
-                "\te.employee_position as position, \n" +
-                "\td.department_name as dp_name,\n" +
-                "\te.salary as salary, \n" +
-                "\tto_char((e.hire_date)::date, 'DD.MM.YYYY') as ddate\n" +
-                "from employees e\n" +
-                "join departments d on d.id = e.department_it\n" +
-                "order by ddate desc";
-        return jdbcTemplate.queryForList(query);
+        return jdbcTemplate.queryForList(GET_EMPLOYEES_DATA_QUERY);
     }
 
 
