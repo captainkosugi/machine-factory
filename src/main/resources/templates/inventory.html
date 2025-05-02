@@ -53,8 +53,8 @@
                                             <label for="inventory-type">Тип операции</label>
                                             <select id="inventory-type" required>
                                                 <option value="">Выберите тип операции</option>
-                                                <option value="Приход">Приход</option>
-                                                <option value="Расход">Расход</option>
+                                                <option value="Поставка">Поставка</option>
+                                                <option value="Реализация">Реализация</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -62,11 +62,7 @@
                                             <input type="number" id="inventory-count" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="inventory-workshop">Склад</label>
-                                            <input type="text" id="inventory-workshop" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inventory-date">EMAIL</label>
+                                            <label for="inventory-date">Дата</label>
                                             <input type="date" id="inventory-date" required>
                                         </div>
                                     </form>
@@ -84,7 +80,6 @@
                                 <th>Наименование</th>
                                 <th>Тип операции</th>
                                 <th>Количество</th>
-                                <th>Склад</th>
                                 <th>Дата</th>
                                 <th>Действия</th>
                             </tr>
@@ -95,7 +90,6 @@
                                 <td>Редуктор РЦД-350</td>
                                 <td>Приход</td>
                                 <td>10</td>
-                                <td>Склад №1</td>
                                 <td>15.03.2023</td>
                                 <td>
                                     <button class="action-btn edit">Изменить</button>
@@ -107,7 +101,6 @@
                                 <td>Насос НШ-32</td>
                                 <td>Расход</td>
                                 <td>5</td>
-                                <td>Склад №2</td>
                                 <td>17.03.2023</td>
                                 <td>
                                     <button class="action-btn edit">Изменить</button>
@@ -119,7 +112,6 @@
                                 <td>Муфта МЗ-125</td>
                                 <td>Приход</td>
                                 <td>20</td>
-                                <td>Склад №1</td>
                                 <td>20.03.2023</td>
                                 <td>
                                     <button class="action-btn edit">Изменить</button>
@@ -131,7 +123,6 @@
                                 <td>Вал карданный ВК-1020</td>
                                 <td>Перемещение</td>
                                 <td>8</td>
-                                <td>Склад №2 → Склад №3</td>
                                 <td>22.03.2023</td>
                                 <td>
                                     <button class="action-btn edit">Изменить</button>
@@ -143,7 +134,6 @@
                                 <td>Редуктор РЦД-350</td>
                                 <td>Расход</td>
                                 <td>3</td>
-                                <td>Склад №1</td>
                                 <td>25.03.2023</td>
                                 <td>
                                     <button class="action-btn edit">Изменить</button>
