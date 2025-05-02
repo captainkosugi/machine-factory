@@ -14,28 +14,32 @@ public class PartnersService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    private static final String GET_ALL_PARTNERS_QUERY =
+            """
+            select 
+                row_number() over (order by partner_type, id) as unique_id,
+                partner_name,
+                partner_type,
+                phone,
+                email
+            from (select
+                s.supplier_id as id,
+                s.supplier_name as partner_name,
+                'Поставщик' as partner_type,
+                s.phone as phone,
+                s.email as email
+            from suppliers s
+                union all
+            select 
+                c.customer_id as id,
+                c.customer_name as partner_name,
+                'Покупатель' as partner_type,
+                c.phone as phone,
+                c.email as email
+            from customers c) as combined_partners
+            """;
+
     public List<Map<String, Object>> getPartnersData() {
-        String query = "select \n" +
-                "\trow_number() over (order by partner_type, id) as unique_id,\n" +
-                "\tpartner_name,\n" +
-                "\tpartner_type,\n" +
-                "\tphone,\n" +
-                "\temail\n" +
-                "from (select \n" +
-                "\ts.supplier_id as id,\n" +
-                "\ts.supplier_name as partner_name,\n" +
-                "\t'Поставщик' as partner_type,\n" +
-                "\ts.phone as phone,\n" +
-                "\ts.email as email\n" +
-                "from suppliers s \n" +
-                "union all\n" +
-                "select \n" +
-                "\tc.customer_id as id,\n" +
-                "\tc.customer_name as partner_name,\n" +
-                "\t'Покупатель' as partner_type,\n" +
-                "\tc.phone as phone,\n" +
-                "\tc.email as email\n" +
-                "from customers c) as combined_partners;";
-        return jdbcTemplate.queryForList(query);
+        return jdbcTemplate.queryForList(GET_ALL_PARTNERS_QUERY);
     }
 }

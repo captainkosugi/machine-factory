@@ -65,6 +65,10 @@
                                             <label for="inventory-date">Дата</label>
                                             <input type="date" id="inventory-date" required>
                                         </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="primary-btn">Сохранить</button>
+                                            <button type="button" class="secondary-btn cancel-modal">Отмена</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -85,56 +89,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Редуктор РЦД-350</td>
-                                <td>Приход</td>
-                                <td>10</td>
-                                <td>15.03.2023</td>
-                                <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Насос НШ-32</td>
-                                <td>Расход</td>
-                                <td>5</td>
-                                <td>17.03.2023</td>
-                                <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Муфта МЗ-125</td>
-                                <td>Приход</td>
-                                <td>20</td>
-                                <td>20.03.2023</td>
-                                <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Вал карданный ВК-1020</td>
-                                <td>Перемещение</td>
-                                <td>8</td>
-                                <td>22.03.2023</td>
-                                <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Редуктор РЦД-350</td>
-                                <td>Расход</td>
-                                <td>3</td>
-                                <td>25.03.2023</td>
+                            <tr th:each="invent : ${inventory}">
+                                <td th:text="${invent[id]}"></td>
+                                <td th:text="${invent[p_name]}"></td>
+                                <td th:text="${invent[gm_type]}"></td>
+                                <td th:text="${invent[move_quantity]}"></td>
+                                <td th:text="${invent[move_date]}"></td>
                                 <td>
                                     <button class="action-btn edit">Изменить</button>
                                     <button class="action-btn delete">Удалить</button>

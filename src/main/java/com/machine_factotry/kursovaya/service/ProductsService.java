@@ -14,16 +14,50 @@ public class ProductsService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    private static final String UPDATE_PRODUCTS_DATA =
+            """
+            update products p
+            set quantity = p.quantity  + (
+                select coalesce(
+                    sum
+                        (case
+                            when gm.movement_type = 'Поставка' then gm.quantity
+                            when gm.movement_type = 'Реализация' then -gm.quantity
+                            else 0
+                        end), 0)
+                from goods_movement gm
+                where gm.product_id = p.product_id and gm.processed = false
+                );
+            """;
+
+    private static final String SET_PROCESSED =
+            """
+            update goods_movement gm
+            set processed = true
+            where gm.processed = false
+            """;
+
+    private static final String GET_PRODUCTS_DATA_QUERY =
+            """
+            select 
+                p.product_id as p_id,
+                p.product_name as p_name,
+                p.product_category as p_category,
+                p.product_price as p_price,
+                p.quantity as p_quantity,
+                p.product_status as p_status
+            from products p
+            order by p_price desc
+            """;
+
+    public void updateProductsData() {
+        jdbcTemplate.execute(UPDATE_PRODUCTS_DATA);
+    }
+
     public List<Map<String, Object>> getProductsData() {
-        String query = "select \n" +
-                "\tp.product_id as p_id,\n" +
-                "\tp.product_name as p_name,\n" +
-                "\tp.product_category as p_category,\n" +
-                "\tp.product_price as p_price,\n" +
-                "\tp.quantity as p_quantity,\n" +
-                "\tp.product_status as p_status\n" +
-                "from products p\n" +
-                "order by p_price desc";
-        return jdbcTemplate.queryForList(query);
+        List<Map<String, Object>> result = jdbcTemplate.queryForList(GET_PRODUCTS_DATA_QUERY);
+        updateProductsData();
+        jdbcTemplate.execute(SET_PROCESSED);
+        return result;
     }
 }

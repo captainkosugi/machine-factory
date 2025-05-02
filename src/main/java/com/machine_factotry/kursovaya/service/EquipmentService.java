@@ -13,18 +13,21 @@ public class EquipmentService {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+    private static final String GET_EQUIPMENT_DATA_QUERY =
+            """
+            select
+                e.equipment_id as e_id,
+                e.quipment_name as e_name,
+                e.equipment_type as e_type,
+                d.department_name as d_name,
+                e.equipment_status as e_status,
+                to_char((e.installation_date)::date, 'DD.MM.YYYY') as i_date
+            from equipment e
+            join departments d on d.id = e.department_it
+            order by i_date desc
+            """;
 
     public List<Map<String, Object>> getEquipmentData() {
-        String query = "select \n" +
-                "\te.equipment_id as e_id,\n" +
-                "\te.quipment_name as e_name,\n" +
-                "\te.equipment_type as e_type,\n" +
-                "\td.department_name as d_name,\n" +
-                "\te.equipment_status as e_status,\n" +
-                "\tto_char((e.installation_date)::date, 'DD.MM.YYYY') as i_date\n" +
-                "from equipment e \n" +
-                "join departments d on d.id = e.department_it\n" +
-                "order by i_date desc";
-        return jdbcTemplate.queryForList(query);
+        return jdbcTemplate.queryForList(GET_EQUIPMENT_DATA_QUERY);
     }
 }
