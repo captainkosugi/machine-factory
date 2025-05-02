@@ -93,56 +93,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>ООО "ТехноКомплект"</td>
-                                <td>Поставщик</td>
-                                <td>+7 (495) 123-45-67</td>
-                                <td>info@techno.ru</td>
-                                <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>АО "МашСтрой"</td>
-                                <td>Клиент</td>
-                                <td>+7 (812) 765-43-21</td>
-                                <td>sales@mashstroy.ru</td>
-                                <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>ИП Козлов С.Н.</td>
-                                <td>Поставщик</td>
-                                <td>+7 (499) 555-66-77</td>
-                                <td>kozlov@mail.ru</td>
-                                <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>ООО "АгроТехника"</td>
-                                <td>Клиент</td>
-                                <td>+7 (383) 222-33-44</td>
-                                <td>agro@tech.ru</td>
-                                <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>ЗАО "МеталлПром"</td>
-                                <td>Поставщик</td>
-                                <td>+7 (343) 888-99-00</td>
-                                <td>metall@prom.ru</td>
+                            <tr th:each="partner : ${partners}">
+                                <td th:text="${partner[unique_id]}"></td>
+                                <td th:text="${partner[partner_name]}"></td>
+                                <td th:text="${partner[partner_type]}"></td>
+                                <td th:text="${partner[phone]}"></td>
+                                <td th:text="${partner[email]}"></td>
                                 <td>
                                     <button class="action-btn edit">Изменить</button>
                                     <button class="action-btn delete">Удалить</button>

@@ -99,61 +99,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Токарный станок ТС-500</td>
-                                <td>Станок</td>
-                                <td>Цех №2</td>
-                                <td><span class="status active">Активен</span></td>
-                                <td>12.05.2021</td>
+                            <tr th:each="equipmen : ${equipment}">
+                                <td th:text="${equipmen[e_id]}"></td>
+                                <td th:text="${equipmen[e_name]}"></td>
+                                <td th:text="${equipmen[e_type]}"></td>
+                                <td th:text="${equipmen[d_name]}"></td>
                                 <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
+                                    <span th:class="'status ' +  ${equipmen[e_status] == 'Активен' ? 'active' :
+                                       (equipmen[e_status] == 'На обслуживании' ? 'maintenance' :
+                                       (equipmen[e_status] == 'Не исправен' ? 'broken' : ''))}">
+                                        <span th:text="${equipmen[e_status]}"></span>
+                                    </span>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Фрезерный станок ФС-300</td>
-                                <td>Станок</td>
-                                <td>Цех №1</td>
-                                <td><span class="status maintenance">На обслуживании</span></td>
-                                <td>03.09.2020</td>
-                                <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Конвейерная линия КЛ-100</td>
-                                <td>Конвейер</td>
-                                <td>Цех №3</td>
-                                <td><span class="status active">Активен</span></td>
-                                <td>17.02.2022</td>
-                                <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Сварочный аппарат СА-200</td>
-                                <td>Сварочное оборудование</td>
-                                <td>Цех №2</td>
-                                <td><span class="status broken">Неисправен</span></td>
-                                <td>05.11.2021</td>
-                                <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Пресс гидравлический ПГ-50</td>
-                                <td>Пресс</td>
-                                <td>Цех №1</td>
-                                <td><span class="status active">Активен</span></td>
-                                <td>20.12.2021</td>
+                                <td th:text="${equipmen[i_date]}"></td>
                                 <td>
                                     <button class="action-btn edit">Изменить</button>
                                     <button class="action-btn delete">Удалить</button>
