@@ -13,7 +13,7 @@ public class EquipmentService {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
-    private static final String GET_EQUIPMENT_DATA_QUERY =
+    private static final String GET_EQUIPMENT_DATA =
             """
             select
                 e.equipment_id as e_id,
@@ -27,7 +27,31 @@ public class EquipmentService {
             order by i_date desc
             """;
 
+    private static final String ADD_EQUIPMENT_DATA =
+            """
+            insert into equipment (quipment_name, equipment_type, department_it, equipment_status, installation_date)
+            values(?, ?, ?, ?, to_date(?, 'YYYY-MM-DD'))
+            """;
+
+
+    private static final String GET_EQUIPMENT_STATUS =
+            "select distinct(e.equipment_status) as e_status from equipment e ";
+
     public List<Map<String, Object>> getEquipmentData() {
-        return jdbcTemplate.queryForList(GET_EQUIPMENT_DATA_QUERY);
+        return jdbcTemplate.queryForList(GET_EQUIPMENT_DATA);
+    }
+
+    public void addEquipment(Map<String, String> formData, int departmentId) {
+        jdbcTemplate.update(ADD_EQUIPMENT_DATA,
+                formData.get("eq_name"),
+                formData.get("eq_type"),
+                departmentId,
+                formData.get("eq_status"),
+                formData.get("installation_date")
+                );
+    }
+
+    public List<Map<String, Object>> getEquipmentStatusData() {
+        return jdbcTemplate.queryForList(GET_EQUIPMENT_STATUS);
     }
 }

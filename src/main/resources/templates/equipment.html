@@ -43,36 +43,38 @@
                                     <button class="close-modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="equipment-form">
+                                    <form id="equipment-form" method="post" th:action="@{/add-equipment}">
                                         <div class="form-group">
                                             <label for="equipment-name">Наименование</label>
-                                            <input type="text" id="equipment-name" required>
+                                            <input type="text" id="equipment-name" name="eq_name" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="equipment-type">Тип</label>
-                                            <input type="text" id="equipment-type" required>
+                                            <input type="text" id="equipment-type" name="eq_type" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="equipment-workshop">Отдел</label>
-                                            <select id="equipment-workshop" required>
+                                            <select id="equipment-workshop" name="departmentName" required>
                                                 <option value="">Выберите отдел</option>
-                                                <option value="Склад">Склад</option>
-                                                <option value="Производство">Производство</option>
-                                                <option value="Логистика">Логистика</option>
+                                                <option th:each="department : ${departments}"
+                                                        th:value="${department[d_name]}"
+                                                        th:text="${department[d_name]}">
+                                                </option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="equipment-status">Статус</label>
-                                            <select id="equipment-status" required>
+                                            <select id="equipment-status" name="eq_status" required>
                                                 <option value="">Выберите статус</option>
-                                                <option value="active">Активен</option>
-                                                <option value="maintenance">На обслуживании</option>
-                                                <option value="broken">Неисправен</option>
+                                                <option th:each="status : ${statuses}"
+                                                        th:value="${status[e_status]}"
+                                                        th:text="${status[e_status]}">
+                                                </option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="equipment-date">Дата установки</label>
-                                            <input type="date" id="equipment-date" required>
+                                            <input type="date" id="equipment-date" name="installation_date" required>
                                         </div>
                                         <div class="form-actions">
                                             <button type="submit" class="primary-btn">Сохранить</button>
