@@ -28,8 +28,24 @@ public class EmployeeService {
             order by ddate desc
             """;
 
+    private static final String ADD_EMPLOYEES_DATA =
+            """
+            insert into employees (employee_name, employee_position, department_it, salary, hire_date)
+            values(?, ?, ?, ?::integer, to_date(?, 'YYYY-MM-DD'))
+            """;
+
     public List<Map<String, Object>> getEmployeesData() {
         return jdbcTemplate.queryForList(GET_EMPLOYEES_DATA_QUERY);
+    }
+
+    public void addEmployee(Map<String, String> formData, int departmentId) {
+        jdbcTemplate.update(ADD_EMPLOYEES_DATA,
+            formData.get("em_name"),
+            formData.get("em_position"),
+            departmentId,
+            formData.get("em_salary"),
+            formData.get("em_hire_date")
+        );
     }
 
 
