@@ -43,32 +43,32 @@
                                     <button class="close-modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="employee-form">
+                                    <form id="employee-form" method="post" th:action="@{/add-employee}">
                                         <div class="form-group">
                                             <label for="employee-name">ФИО</label>
-                                            <input type="text" id="employee-name" required>
+                                            <input type="text" id="employee-name" name="em_name" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="employee-position">Должность</label>
-                                            <input type="text" id="employee-position" required>
+                                            <input type="text" id="employee-position" name="em_position" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="employee-department">Отдел</label>
-                                            <select id="employee-department" required>
-                                                <option value="">Выберите отдел</option>
-                                                <option value="Производство">Производство</option>
-                                                <option value="Инженерия">Инженерия</option>
-                                                <option value="Администрация">Администрация</option>
-                                                <option value="Логистика">Логистика</option>
+                                            <select id="employee-department" name="departmentName" required>
+                                                <option value="Выберите отдел">Выберите отдел</option>
+                                                <option th:each="department : ${departments}"
+                                                        th:value="${department[d_name]}"
+                                                        th:text="${department[d_name]}">
+                                                </option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="employee-salary">Зарплата</label>
-                                            <input type="number" id="employee-salary" required>
+                                            <input type="number" id="employee-salary" name="em_salary" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="employee-date">Дата приема</label>
-                                            <input type="date" id="employee-date" required>
+                                            <input type="date" id="employee-date" name="em_hire_date" required>
                                         </div>
                                         <div class="form-actions">
                                             <button type="submit" class="primary-btn">Сохранить</button>
