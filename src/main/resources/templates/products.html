@@ -44,38 +44,35 @@
                                     <button class="close-modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="product-form">
+                                    <form id="product-form" method="post" th:action="@{/add-product}">
                                         <div class="form-group">
                                             <label for="product-name">Наименование</label>
-                                            <input type="text" id="product-name" required>
+                                            <input type="text" id="product-name" name="p_name" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="product-category">Категория</label>
-                                            <select id="product-category" required>
+                                            <select id="product-category" name="p_category" required>
                                                 <option value="">Выберите категорию</option>
-                                                <option value="Двигатель">Двигатель</option>
-                                                <option value="Кузов">Кузов</option>
-                                                <option value="Ходовая часть">Ходовая часть</option>
-                                                <option value="Трансмиссия">Трансмиссия</option>
-                                                <option value="Электрическая система">Электрическая система</option>
-                                                <option value="Система охлаждения">Система охлаждения</option>
-                                                <option value="Система выхлопа">Система выхлопа</option>
+                                                <option th:each="category : ${categories}"
+                                                        th:value="${category[category_name]}"
+                                                        th:text="${category[category_name]}">
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="product-price">Цена</label>
-                                            <input type="number" id="product-price" required>
+                                            <input type="number" id="product-price" name="p_price" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="product-count">Количество</label>
-                                            <input type="number" id="product-count" required>
+                                            <input type="number" id="product-count" name="p_count" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="product-status">Статус</label>
-                                            <select id="product-status" required>
+                                            <select id="product-status" name="p_status" required>
                                                 <option value="">Выберите статус</option>
-                                                <option value="active">В наличии</option>
-                                                <option value="broken">Нет в наличии</option>
+                                                <option th:each="status : ${statuses}"
+                                                        th:value="${status[product_status]}"
+                                                        th:text="${status[product_status]}">
                                             </select>
                                         </div>
                                         <div class="form-actions">
