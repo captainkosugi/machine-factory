@@ -50,8 +50,32 @@ public class ProductsService {
             order by p_price desc
             """;
 
+    private static final String GET_PRODUCTS_CATEGORY =
+            """
+            select distinct(p.product_category) as category_name from products p;         
+            """;
+
+    private static final String GET_PRODUCT_STATUS =
+            """
+            select distinct(p.product_status) as product_status from products p
+            """;
+
+    private static final String ADD_PRODUCTS_DATA =
+            """
+            insert into products (product_name, product_category, product_price, quantity)
+            values (?, ?, ?::integer, ?::integer)
+            """;
+
     public void updateProductsData() {
         jdbcTemplate.execute(UPDATE_PRODUCTS_DATA);
+    }
+
+    public List<Map<String, Object>> getProductsCategory() {
+        return jdbcTemplate.queryForList(GET_PRODUCTS_CATEGORY);
+    }
+
+    public List<Map<String, Object>> getProductStatus() {
+        return jdbcTemplate.queryForList(GET_PRODUCT_STATUS);
     }
 
     public List<Map<String, Object>> getProductsData() {
@@ -59,5 +83,14 @@ public class ProductsService {
         updateProductsData();
         jdbcTemplate.execute(SET_PROCESSED);
         return result;
+    }
+
+    public void addProduct(Map<String, String> formData) {
+        jdbcTemplate.update(ADD_PRODUCTS_DATA,
+            formData.get("p_name"),
+            formData.get("p_category"),
+            formData.get("p_price"),
+            formData.get("p_count")
+        );
     }
 }
