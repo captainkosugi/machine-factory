@@ -44,14 +44,14 @@
                                     <button class="close-modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="inventory-form">
+                                    <form id="inventory-form" method="post" th:action="@{/add-movement}">
                                         <div class="form-group">
                                             <label for="inventory-name">Наименование</label>
-                                            <input type="text" id="inventory-name" required>
+                                            <input type="text" id="inventory-name" name="movement_name" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="inventory-type">Тип операции</label>
-                                            <select id="inventory-type" required>
+                                            <select id="inventory-type" name="movement_type" required>
                                                 <option value="">Выберите тип операции</option>
                                                 <option value="Поставка">Поставка</option>
                                                 <option value="Реализация">Реализация</option>
@@ -59,11 +59,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="inventory-count">Количество</label>
-                                            <input type="number" id="inventory-count" required>
+                                            <input type="number" id="inventory-count" name="movement_count" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="inventory-date">Дата</label>
-                                            <input type="date" id="inventory-date" required>
+                                            <input type="date" id="inventory-date" name="movement_date" required>
                                         </div>
                                         <div class="form-actions">
                                             <button type="submit" class="primary-btn">Сохранить</button>

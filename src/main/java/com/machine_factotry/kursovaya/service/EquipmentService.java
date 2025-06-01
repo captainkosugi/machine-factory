@@ -47,8 +47,7 @@ public class EquipmentService {
                 formData.get("eq_type"),
                 departmentId,
                 formData.get("eq_status"),
-                formData.get("installation_date")
-                );
+                formData.get("installation_date"));
     }
 
     public List<Map<String, Object>> getEquipmentStatusData() {
