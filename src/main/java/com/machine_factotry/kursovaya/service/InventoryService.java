@@ -25,9 +25,48 @@ public class InventoryService {
     join products p on p.product_id = gm.product_id
     """;
 
+    private static final String ADD_INVENTORY_DATA =
+    """
+    insert into goods_movement(product_id, partner_id, movement_type, quantity, movement_date)
+    values(?, ?, ?, ?::integer, ?::date)
+    """;
+
+    private static final String GET_RANDOM_SUPPLIER =
+    """
+    select s.supplier_id  from suppliers s order by random() limit 1
+    """;
+
+    private static final String GET_RANDOM_CUSTOMER =
+    """
+    select c.customer_id from customers c order by random() limit 1
+    """;
+
+    private static final String GET_PRODUCT_ID_BY_NAME =
+    """
+    select product_id from products where product_name = ?
+    """;
+
+    public int productId(String productName) {
+        return jdbcTemplate.queryForObject(GET_PRODUCT_ID_BY_NAME, Integer.class, productName);
+    }
+
+    public int partnerId(Map<String, String> formData) {
+        if (formData.get("movement_type").equals("Поставка")) {
+            return jdbcTemplate.queryForObject(GET_RANDOM_SUPPLIER, Integer.class);
+        }
+        return jdbcTemplate.queryForObject(GET_RANDOM_CUSTOMER, Integer.class);
+    }
+
+    public void addMovement(Map<String, String> formData, int partnerId, int productId) {
+        jdbcTemplate.update(ADD_INVENTORY_DATA,
+                productId,
+                partnerId,
+                formData.get("movement_type"),
+                formData.get("movement_count"),
+                formData.get("movement_date"));
+    }
 
     public List<Map<String, Object>> getInventoryData() {
-        List<Map<String, Object>> result =  jdbcTemplate.queryForList(GET_INVENTORY_DATA);
-        return result;
+        return jdbcTemplate.queryForList(GET_INVENTORY_DATA);
     }
 }

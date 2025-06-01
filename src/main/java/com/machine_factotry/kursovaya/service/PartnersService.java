@@ -39,6 +39,33 @@ public class PartnersService {
             from customers c) as combined_partners
             """;
 
+    private static final String ADD_SUPPLIER =
+            """
+            insert into suppliers (supplier_name, phone, email)
+            values (?, ?, ?)
+            """;
+
+
+    private static final String ADD_CUSTOMER =
+            """
+            insert into customers(customer_name, phone, email)
+            values(?, ?, ?)
+            """;
+
+
+    public void addPartner(Map<String, String> formData) {
+        if (formData.get("partner_type").equals("Покупатель")) {
+            jdbcTemplate.update(ADD_CUSTOMER,
+                    formData.get("partner_name"),
+                    formData.get("partner_phone"),
+                    formData.get("partner_email"));
+        }
+        jdbcTemplate.update(ADD_SUPPLIER,
+                    formData.get("partner_name"),
+                    formData.get("partner_phone"),
+                    formData.get("partner_email"));
+    }
+
     public List<Map<String, Object>> getPartnersData() {
         return jdbcTemplate.queryForList(GET_ALL_PARTNERS_QUERY);
     }
