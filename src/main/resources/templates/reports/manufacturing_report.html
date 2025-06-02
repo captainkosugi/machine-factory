@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчет о работе машиностроительного завода</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            background-color: #f9f9f9;
+            font-size: 12px;
+        }
+        .document {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        h2 {
+            font-size: 14px;
+            margin: 25px 0 15px 0;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        .date-info {
+            text-align: right;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .signature {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature-line {
+            border-top: 1px solid #333;
+            width: 200px;
+            margin-top: 5px;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="document">
+    <div style="position: relative;">
+        <div class="header">
+            <div class="logo">"МАШИНОСТРОИТЕЛЬНЫЙ ЗАВОД"</div>
+            <h1>ОТЧЕТ О ПРОИЗВОДСТВЕННОЙ ДЕЯТЕЛЬНОСТИ</h1>
+        </div>
+    </div>
+
+    <div class="date-info">
+        <p>Дата составления: <span th:text="${date}"></span> </p>
+        <p>Отчет №: МП-2025-Q2</p>
+    </div>
+
+    <h2>1. ОСНОВНЫЕ ПОКАЗАТЕЛИ ПРОИЗВОДСТВА</h2>
+    <table>
+        <tr>
+            <th>Показатель</th>
+            <th>План</th>
+            <th>Факт</th>
+            <th>Выполнение (%)</th>
+        </tr>
+        <tr>
+            <td>Объем производства (ед.)</td>
+            <td th:text="${planProductionVolume}"></td>
+            <td th:text="${productionVolume}"></td>
+            <td th:text="${planProductionVolumeComplete}"></td>
+        </tr>
+        <tr>
+            <td>Товарная продукция (млн. руб.)</td>
+            <td th:text="${planMarketableProducts}"></td>
+            <td th:text="${marketableProducts}"></td>
+            <td th:text="${planMarketableProductsComplete}"></td>
+        </tr>
+        <tr>
+            <td>Производительность труда (ед./чел.)</td>
+            <td>4.8</td>
+            <td th:text="${laborPerformance}"></td>
+            <td th:text="${planLaborPerformance}"></td>
+        </tr>
+    </table>
+
+    <h2>2. ВЫПОЛНЕНИЕ ПЛАНА ПО НОМЕНКЛАТУРЕ</h2>
+    <table>
+        <tr>
+            <th>Наименование продукции</th>
+            <th>План (ед.)</th>
+            <th>Факт (ед.)</th>
+            <th>Выполнение (%)</th>
+        </tr>
+        <tr th:each="item : ${getNomenclaturePlan}">
+            <td th:text="${item[p_name]}"></td>
+            <td>50</td>
+            <td th:text="${item[p_quantity]}"></td>
+            <td><span th:text="${item[percent]}"></span>%</td>
+        </tr>
+    </table>
+
+    <div class="signature">
+        <div>
+            <p>Директор по производству</p>
+            <div class="signature-line"></div>
+            <p>Иванов И.И.</p>
+        </div>
+        <div>
+            <p>Главный технолог</p>
+            <div class="signature-line"></div>
+            <p>Петров П.П.</p>
+        </div>
+        <div>
+            <p>Начальник ПЭО</p>
+            <div class="signature-line"></div>
+            <p>Сидорова С.С.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
