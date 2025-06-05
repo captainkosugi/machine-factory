@@ -22,12 +22,21 @@ public class EmployeeController {
     DepartmentService departmentService;
 
     @GetMapping("/employees")
-    public String employees(Model model) {
+    public String employees(
+            @RequestParam(name = "search", required = false) String searchTerm,
+            Model model) {
         List<Map<String, Object>> departments = departmentService.getDepartmentsData();
         model.addAttribute("departments", departments);
 
-        List<Map<String, Object>> employees = employeeService.getEmployeesData();
+        List<Map<String, Object>> employees;
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            employees = employeeService.searchEmployee(searchTerm);
+        }else {
+            employees = employeeService.getEmployeesData();
+        }
+
         model.addAttribute("employees", employees);
+        model.addAttribute("searchTerm", searchTerm);
         return "employees";
     }
 

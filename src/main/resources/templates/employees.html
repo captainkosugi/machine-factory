@@ -30,10 +30,10 @@
                     </div>
 
                     <div class="controls">
-                        <div class="search-container">
-                            <input type="text" id="employee-search" placeholder="Поиск сотрудников...">
+                        <form method="get" th:action="@{/employees}" class="search-container">
+                            <input type="text" name="search" th:value="${searchTerm}" id="employee-search" placeholder="Поиск сотрудников...">
                             <button class="search-btn">Поиск</button>
-                        </div>
+                        </form>
                         <button id="add-employee" class="primary-btn">Добавить сотрудника</button>
 
                         <div id="modal-overlay" class="modal-overlay">

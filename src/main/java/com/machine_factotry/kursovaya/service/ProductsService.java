@@ -66,6 +66,24 @@ public class ProductsService {
             values (?, ?, ?::integer, ?::integer)
             """;
 
+    private static final String SEARCH_PRODUCTS =
+            """
+            select 
+                p.product_id as p_id,
+                p.product_name as p_name,
+                p.product_category as p_category,
+                p.product_price as p_price,
+                p.quantity as p_quantity,
+                p.product_status as p_status
+            from products p
+            where p.product_name ilike ?
+            order by p_price desc
+            """;
+
+    public List<Map<String, Object>> searchProducts(String searchTerm) {
+        return jdbcTemplate.queryForList(SEARCH_PRODUCTS, "%"+searchTerm+"%");
+    }
+
     public void updateProductsData() {
         jdbcTemplate.execute(UPDATE_PRODUCTS_DATA);
     }

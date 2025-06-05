@@ -18,9 +18,18 @@ public class InventoryController {
     InventoryService inventoryService;
 
     @GetMapping("/inventory")
-    public String inventory(Model model) {
-        List<Map<String, Object>> inventoryData = inventoryService.getInventoryData();
+    public String inventory(
+            @RequestParam(name = "search", required = false) String searchTerm,
+            Model model) {
+        List<Map<String, Object>> inventoryData;
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            inventoryData = inventoryService.searchMovement(searchTerm);
+        } else {
+            inventoryData = inventoryService.getInventoryData();
+        }
+
         model.addAttribute("inventory", inventoryData);
+        model.addAttribute("searchTerm", searchTerm);
         return "inventory";
     }
 

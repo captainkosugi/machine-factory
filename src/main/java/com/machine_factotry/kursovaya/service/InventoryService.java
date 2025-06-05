@@ -46,6 +46,23 @@ public class InventoryService {
     select product_id from products where product_name = ?
     """;
 
+    private static final String SEARCH_MOVEMENT =
+            """
+            select 
+                gm.movement_id as id,
+                p.product_name as p_name,
+                gm.movement_type as gm_type,
+                to_char((gm.movement_date)::date, 'DD.MM.YYYY') as move_date,
+                (gm.quantity)::integer as move_quantity
+            from goods_movement gm
+            join products p on p.product_id = gm.product_id
+            where product_name ilike ?
+            """;
+
+    public List<Map<String, Object>> searchMovement(String searchTerm) {
+        return jdbcTemplate.queryForList(SEARCH_MOVEMENT, "%"+searchTerm+"%");
+    }
+
     public int productId(String productName) {
         return jdbcTemplate.queryForObject(GET_PRODUCT_ID_BY_NAME, Integer.class, productName);
     }

@@ -18,15 +18,24 @@ public class ProductsController {
     ProductsService productsService;
 
     @GetMapping("/products")
-    public String products(Model model) {
+    public String products(
+            @RequestParam(name = "search", required = false) String searchTerm,
+            Model model) {
         List<Map<String, Object>> productCategory = productsService.getProductsCategory();
         model.addAttribute("categories", productCategory);
 
         List<Map<String, Object>> productStatus = productsService.getProductStatus();
         model.addAttribute("statuses", productStatus);
 
-        List<Map<String, Object>> products = productsService.getProductsData();
+        List<Map<String, Object>> products;
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            products = productsService.searchProducts(searchTerm);
+        } else {
+            products = productsService.getProductsData();
+        }
+
         model.addAttribute("products", products);
+        model.addAttribute("searchTerm", searchTerm);
         return "products";
     }
 

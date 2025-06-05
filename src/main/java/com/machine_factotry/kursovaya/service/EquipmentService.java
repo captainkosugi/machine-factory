@@ -33,9 +33,27 @@ public class EquipmentService {
             values(?, ?, ?, ?, to_date(?, 'YYYY-MM-DD'))
             """;
 
+    private static final String SEARCH_EQUIPMENT =
+            """
+            select
+                e.equipment_id as e_id,
+                e.quipment_name as e_name,
+                e.equipment_type as e_type,
+                d.department_name as d_name,
+                e.equipment_status as e_status,
+                to_char((e.installation_date)::date, 'DD.MM.YYYY') as i_date
+            from equipment e
+            join departments d on d.id = e.department_it
+            where e.quipment_name ilike ?
+            order by i_date desc
+            """;
 
     private static final String GET_EQUIPMENT_STATUS =
             "select distinct(e.equipment_status) as e_status from equipment e ";
+
+    public List<Map<String, Object>> searchEquipment(String searchTerm) {
+        return jdbcTemplate.queryForList(SEARCH_EQUIPMENT, "%"+searchTerm+"%");
+    }
 
     public List<Map<String, Object>> getEquipmentData() {
         return jdbcTemplate.queryForList(GET_EQUIPMENT_DATA);

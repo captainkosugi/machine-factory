@@ -52,6 +52,35 @@ public class PartnersService {
             values(?, ?, ?)
             """;
 
+    private static final String SEARCH_PARTNER =
+            """
+            select 
+                row_number() over (order by partner_type, id) as unique_id,
+                partner_name,
+                partner_type,
+                phone,
+                email
+            from (select
+                s.supplier_id as id,
+                s.supplier_name as partner_name,
+                'Поставщик' as partner_type,
+                s.phone as phone,
+                s.email as email
+            from suppliers s
+                union all
+            select 
+                c.customer_id as id,
+                c.customer_name as partner_name,
+                'Покупатель' as partner_type,
+                c.phone as phone,
+                c.email as email
+            from customers c) as combined_partners
+            where partner_name ilike ?
+            """;
+
+    public List<Map<String, Object>> searchPartner(String searchTerm) {
+        return jdbcTemplate.queryForList(SEARCH_PARTNER, "%"+searchTerm+"%");
+    }
 
     public void addPartner(Map<String, String> formData) {
         if (formData.get("partner_type").equals("Покупатель")) {
