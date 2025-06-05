@@ -18,9 +18,18 @@ public class PartnersController {
     PartnersService partnersService;
 
     @GetMapping("/partners")
-    public String partners(Model model) {
-        List<Map<String, Object>> partners = partnersService.getPartnersData();
+    public String partners(
+            @RequestParam(name = "search", required = false) String searchTerm,
+            Model model) {
+        List<Map<String, Object>> partners;
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            partners = partnersService.searchPartner(searchTerm);
+        } else {
+            partners = partnersService.getPartnersData();
+        }
+
         model.addAttribute("partners", partners);
+        model.addAttribute("searchTerm", searchTerm);
         return "partners";
     }
 

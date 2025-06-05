@@ -21,15 +21,25 @@ public class EquipmentController {
     DepartmentService departmentService;
 
     @GetMapping("/equipment")
-    public String equipment(Model model) {
+    public String equipment(
+            @RequestParam(name = "search", required = false) String searchTerm,
+            Model model) {
         List<Map<String, Object>> departments = departmentService.getDepartmentsData();
         model.addAttribute("departments", departments);
 
         List<Map<String, Object>> equipmentStatus = equipmentService.getEquipmentStatusData();
         model.addAttribute("statuses", equipmentStatus);
 
-        List<Map<String, Object>> equipments = equipmentService.getEquipmentData();
+        List<Map<String, Object>> equipments;
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            equipments = equipmentService.searchEquipment(searchTerm);
+        } else {
+            equipments = equipmentService.getEquipmentData();
+        }
+
+
         model.addAttribute("equipment", equipments);
+        model.addAttribute("searchTerm", searchTerm);
         return "equipment";
     }
 
