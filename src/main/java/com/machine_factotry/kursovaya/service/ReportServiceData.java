@@ -22,7 +22,7 @@ public class ReportServiceData {
 
     private static final String GET_PLAN_PRODUCTION_VOLUME =
             """
-            select count(p.product_name) * 50 from products p\s
+            select round(count(p.product_name), 0) * 50 from products p\s
             """;
 
     private static final String GET_PLAN_MARKETABLE_PRODUCTS =
@@ -34,7 +34,7 @@ public class ReportServiceData {
 
     private static final String GET_FACT_PRODUCTION_VOLUME =
             """
-            select sum(quantity) from products
+            select round(sum(quantity), 0) from products
             """;
 
     private static final String GET_MARKETABLE_PRODUCTS =
@@ -62,6 +62,71 @@ public class ReportServiceData {
             from products
             order by p_quantity desc
             """;
+
+    private static final String SALARY_SUM =
+            """
+            select
+                d.department_name as d_name,
+                round(sum(e.salary), 0) as salary_sum
+            from employees e
+            left join departments d on d.id = e.department_it
+            group by d.department_name
+            """;
+
+    private static final String EQUIPMENT_STATUS_REPORT =
+            """
+            select
+                e.quipment_name as eq_name,
+                e.equipment_status as eq_status,
+                d.department_name as d_name
+            from equipment e
+            left join departments d on d.id = e.department_it
+            order by e.equipment_status
+            """;
+
+    private static final String DELIVERY_REPORT =
+            """
+            select
+                p.product_name as p_name,
+                s.supplier_name as s_name,
+                gm.movement_type mov_type,
+                round(gm.quantity, 0) as quan,
+                round((gm.quantity * p.product_price), 0) as price
+            from goods_movement gm
+            left join suppliers s on s.supplier_id = gm.partner_id
+            left join products p on p.product_id = gm.product_id
+            where movement_type = 'Поставка'
+            """;
+
+    private static final String SALES_REPORT =
+            """
+            select
+                p.product_name as p_name,
+                c.customer_name as c_name,
+                gm.movement_type as mov_type,
+                round(gm.quantity, 0) as quan,
+                round((gm.quantity * p.product_price), 0) as price
+            from goods_movement gm
+            left join customers c  on c.customer_id  = gm.partner_id
+            left join products p on p.product_id = gm.product_id
+            where movement_type = 'Реализация'
+            """;
+
+    public List<Map<String, Object>> getSalesReport() {
+        return jdbcTemplate.queryForList(SALES_REPORT);
+    }
+
+    public List<Map<String, Object>> getDeliveryReport() {
+        return jdbcTemplate.queryForList(DELIVERY_REPORT);
+    }
+
+    public List<Map<String, Object>> getEquipmentStatusReport() {
+        return jdbcTemplate.queryForList(EQUIPMENT_STATUS_REPORT);
+    }
+
+    public List<Map<String, Object>> getSalaryDepartmentSum() {
+        return jdbcTemplate.queryForList(SALARY_SUM);
+    }
 
     public List<Map<String, Object>> getNomenclaturePlan() {
         return jdbcTemplate.queryForList(NOMENCLATURE_PLAN);

@@ -31,6 +31,11 @@ public class ReportsService {
         data.put("planProductionVolumeComplete", serviceData.planProductionVolumeComplete());
         data.put("planMarketableProductsComplete", serviceData.planMarketableProductsComplete());
         data.put("getNomenclaturePlan", serviceData.getNomenclaturePlan());
+        data.put("getSalaryDepartmentSum", serviceData.getSalaryDepartmentSum());
+        data.put("getEquipmentStatusReport", serviceData.getEquipmentStatusReport());
+        data.put("getDeliveryReport", serviceData.getDeliveryReport());
+        data.put("getSalesReport", serviceData.getSalesReport());
+
 
         Context context = new Context();
         context.setVariables(data);

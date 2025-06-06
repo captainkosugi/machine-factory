@@ -142,6 +142,68 @@
         </tr>
     </table>
 
+    <h2>3. СУММА РАСХОДОВ НА ОПЛАТУ ТРУДА ПО ОТДЕЛАМ</h2>
+    <table>
+        <tr>
+            <th>Наименование</th>
+            <th>Сумма расходов</th>
+        </tr>
+        <tr th:each="item : ${getSalaryDepartmentSum}">
+            <td th:text="${item[d_name]}"></td>
+            <td th:text="${item[salary_sum]}"></td>
+        </tr>
+    </table>
+
+    <h2>4. СОСТОЯНИЕ ОБОРУДОВАНИЯ И РАСПРЕДЕЛЕНИЕ ПО ЦЕХАМ</h2>
+    <table>
+        <tr>
+            <th>Наименование оборудования</th>
+            <th>Статус</th>
+            <th>Отдел</th>
+        </tr>
+        <tr th:each="item : ${getEquipmentStatusReport}">
+            <td th:text="${item[eq_name]}"></td>
+            <td th:text="${item[eq_status]}">50</td>
+            <td th:text="${item[d_name]}"></td>
+        </tr>
+    </table>
+
+    <h2>5. СВОДКА О ПОСТАВКАХ ГОТОВОЙ ПРОДУКЦИИ</h2>
+    <table>
+        <tr>
+            <th>Наименование продукции</th>
+            <th>Наименование партнера </th>
+            <th>Тип движения</th>
+            <th>Количество</th>
+            <th>Стоимость</th>
+        </tr>
+        <tr th:each="item : ${getDeliveryReport}">
+            <td th:text="${item[p_name]}"></td>
+            <td th:text="${item[s_name]}"></td>
+            <td th:text="${item[mov_type]}"></td>
+            <td th:text="${item[quan]}"></td>
+            <td th:text="${item[price]}"></td>
+        </tr>
+    </table>
+
+    <h2>6. СВОДКА О РЕАЛИЗАЦИИ ГОТОВОЙ ПРОДУКЦИИ</h2>
+    <table>
+        <tr>
+            <th>Наименование продукции</th>
+            <th>Наименование партнера </th>
+            <th>Тип движения</th>
+            <th>Количество</th>
+            <th>Стоимость</th>
+        </tr>
+        <tr th:each="item : ${getSalesReport}">
+            <td th:text="${item[p_name]}"></td>
+            <td th:text="${item[c_name]}"></td>
+            <td th:text="${item[mov_type]}"></td>
+            <td th:text="${item[quan]}"></td>
+            <td th:text="${item[price]}"></td>
+        </tr>
+    </table>
+
     <div class="signature">
         <div>
             <p>Директор по производству</p>
