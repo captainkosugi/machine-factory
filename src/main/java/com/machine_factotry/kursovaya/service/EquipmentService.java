@@ -4,6 +4,7 @@ import com.machine_factotry.kursovaya.dto.EquipmentDTO;
 import com.machine_factotry.kursovaya.entity.Equipment;
 import com.machine_factotry.kursovaya.repository.DepartmentRepository;
 import com.machine_factotry.kursovaya.repository.EquipmentRepository;
+import com.machine_factotry.kursovaya.util.DtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,29 +28,25 @@ public class EquipmentService {
 
     }
 
-    public List<EquipmentDTO> searchEquipment(String searchTerm) {
-        Iterable<Equipment> equipmentIterable =
-                equipmentRepository.searchEquipment("%" + searchTerm + "%");
-        List<EquipmentDTO> equipmentList = new ArrayList<>();
+    private EquipmentDTO convertToDto(Equipment equipment) {
+        String departmentName = departmentRepository.getDepartmentNameById(
+                equipment.getDepartmentIt()
+        );
+        return EquipmentDTO.toDTO(equipment, departmentName);
+    }
 
-        for (Equipment equipment :  equipmentIterable) {
-            EquipmentDTO dto = EquipmentDTO.toDTO(equipment,
-                    departmentRepository.getDepartmentNameById(equipment.getDepartmentIt()));
-            equipmentList.add(dto);
-        }
-        return equipmentList;
+    public List<EquipmentDTO> searchEquipment(String searchTerm) {
+        return DtoConverter.convert(
+                equipmentRepository.searchEquipment("%"+searchTerm+"%"),
+                this::convertToDto
+        );
     }
 
     public List<EquipmentDTO> getEquipmentData() {
-        Iterable<Equipment> equipmentIterable = equipmentRepository.getEquipmentData();
-        List<EquipmentDTO> equipmentList = new ArrayList<>();
-
-        for (Equipment equipment : equipmentIterable) {
-            EquipmentDTO dto = EquipmentDTO.toDTO(equipment,
-                    departmentRepository.getDepartmentNameById(equipment.getDepartmentIt()));
-            equipmentList.add(dto);
-        }
-        return equipmentList;
+        return DtoConverter.convert(
+                equipmentRepository.getEquipmentData(),
+                this::convertToDto
+        );
     }
 
     public void addEquipment(Map<String, String> formData, int departmentId) {

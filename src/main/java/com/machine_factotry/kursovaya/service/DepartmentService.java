@@ -3,6 +3,7 @@ package com.machine_factotry.kursovaya.service;
 import com.machine_factotry.kursovaya.dto.DepartmentDTO;
 import com.machine_factotry.kursovaya.entity.Department;
 import com.machine_factotry.kursovaya.repository.DepartmentRepository;
+import com.machine_factotry.kursovaya.util.DtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +20,15 @@ public class DepartmentService {
         this.departmentRepository = departmentRepository;
     }
 
-    public List<DepartmentDTO> getDepartmentsData() {
-        Iterable<Department> departmentIterable =  departmentRepository.getAllDepartments();
-        List<DepartmentDTO> departmentList = new ArrayList<>();
+    private DepartmentDTO convertToDto(Department department) {
+        return DepartmentDTO.toDTO(department);
+    }
 
-        for (Department department : departmentIterable) {
-            DepartmentDTO dto = DepartmentDTO.toDTO(department);
-            departmentList.add(dto);
-        }
-        return departmentList;
+    public List<DepartmentDTO> getDepartmentsData() {
+        return DtoConverter.convert(
+                departmentRepository.getAllDepartments(),
+                this::convertToDto
+        );
     }
 
     public Integer getDepartmentIdByName(String departmentName) {

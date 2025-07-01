@@ -5,6 +5,7 @@ import com.machine_factotry.kursovaya.dto.EmployeeDTO;
 import com.machine_factotry.kursovaya.entity.Employee;
 import com.machine_factotry.kursovaya.repository.DepartmentRepository;
 import com.machine_factotry.kursovaya.repository.EmployeeRepository;
+import com.machine_factotry.kursovaya.util.DtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,30 +27,25 @@ public class EmployeeService {
         this.departmentRepository = departmentRepository;
     }
 
+    private EmployeeDTO convertToDto(Employee employee) {
+        String departmentName = departmentRepository.getDepartmentNameById(
+                employee.getDepartmentIt()
+        );
+        return EmployeeDTO.toDTO(employee, departmentName);
+    }
+
     public List<EmployeeDTO> getEmployeesData() {
-        Iterable<Employee> employeeIterable = employeeRepository.getAllEmployees();
-        List<EmployeeDTO> employeeList = new ArrayList<>();
-
-        for (Employee employee : employeeIterable) {
-            EmployeeDTO dto = EmployeeDTO.toDTO(employee,
-                    departmentRepository.getDepartmentNameById(employee.getDepartmentIt()));
-            employeeList.add(dto);
-
-        }
-        return employeeList;
+        return DtoConverter.convert(
+                employeeRepository.getAllEmployees(),
+                this::convertToDto
+        );
     }
 
     public List<EmployeeDTO> searchEmployee(String searchTerm) {
-        Iterable<Employee> employeeIterable =
-                employeeRepository.searchEmployees("%" + searchTerm + "%");
-        List<EmployeeDTO> employeeList = new ArrayList<>();
-
-        for (Employee employee : employeeIterable) {
-            EmployeeDTO dto = EmployeeDTO.toDTO(employee,
-                    departmentRepository.getDepartmentNameById(employee.getDepartmentIt()));
-            employeeList.add(dto);
-        }
-        return employeeList;
+        return DtoConverter.convert(
+                employeeRepository.searchEmployees("%"+searchTerm+"%"),
+                this::convertToDto
+        );
     }
 
     public void addEmployee(Map<String, String> formData, int departmentId) {
