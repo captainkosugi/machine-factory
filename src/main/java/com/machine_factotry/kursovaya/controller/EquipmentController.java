@@ -17,10 +17,15 @@ import java.util.Map;
 @Controller
 public class EquipmentController {
 
-    @Autowired
-    EquipmentService equipmentService;
-    @Autowired
-    DepartmentService departmentService;
+
+    private final EquipmentService equipmentService;
+    private final DepartmentService departmentService;
+
+
+    public EquipmentController(EquipmentService equipmentService, DepartmentService departmentService) {
+        this.equipmentService = equipmentService;
+        this.departmentService = departmentService;
+    }
 
     @GetMapping("/equipment")
     public String equipment(

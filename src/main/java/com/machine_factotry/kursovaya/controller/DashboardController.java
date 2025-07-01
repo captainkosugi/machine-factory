@@ -11,8 +11,13 @@ import java.util.Map;
 @Controller
 public class DashboardController {
 
-    @Autowired
-    DashboardService dashboardService;
+
+    private final DashboardService dashboardService;
+
+
+    public DashboardController(DashboardService dashboardService) {
+        this.dashboardService = dashboardService;
+    }
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {

@@ -15,8 +15,13 @@ import java.util.Map;
 @Controller
 public class InventoryController {
 
-    @Autowired
-    InventoryService inventoryService;
+
+    private final InventoryService inventoryService;
+
+
+    public InventoryController(InventoryService inventoryService) {
+        this.inventoryService = inventoryService;
+    }
 
     @GetMapping("/inventory")
     public String inventory(
