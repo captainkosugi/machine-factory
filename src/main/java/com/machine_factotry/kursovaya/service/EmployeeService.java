@@ -1,70 +1,70 @@
 package com.machine_factotry.kursovaya.service;
 
 
+import com.machine_factotry.kursovaya.dto.EmployeeDTO;
+import com.machine_factotry.kursovaya.entity.Employee;
+import com.machine_factotry.kursovaya.repository.DepartmentRepository;
+import com.machine_factotry.kursovaya.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class EmployeeService {
 
+    private final EmployeeRepository employeeRepository;
+    private final DepartmentRepository departmentRepository;
+
     @Autowired
-    JdbcTemplate jdbcTemplate;
-
-    private static final String GET_EMPLOYEES_DATA_QUERY =
-            """
-            select
-                e.employee_id as id,
-                e.employee_name as name,
-                e.employee_position as position,
-                d.department_name as dp_name,
-                e.salary as salary,
-                to_char((e.hire_date)::date, 'DD.MM.YYYY') as ddate
-            from employees e
-            join departments d on d.id = e.department_it
-            order by ddate desc
-            """;
-
-    private static final String ADD_EMPLOYEES_DATA =
-            """
-            insert into employees (employee_name, employee_position, department_it, salary, hire_date)
-            values(?, ?, ?, ?::integer, to_date(?, 'YYYY-MM-DD'))
-            """;
-
-    private static final String SEARCH_EMPLOYEE =
-            """
-            select
-                e.employee_id as id,
-                e.employee_name as name,
-                e.employee_position as position,
-                d.department_name as dp_name,
-                e.salary as salary,
-                to_char((e.hire_date)::date, 'DD.MM.YYYY') as ddate
-            from employees e
-            join departments d on d.id = e.department_it
-            where e.employee_name ilike ?
-            order by ddate desc
-            """;
-
-    public List<Map<String, Object>> searchEmployee(String searchTerm) {
-        return jdbcTemplate.queryForList(SEARCH_EMPLOYEE, "%"+searchTerm+"%");
+    public EmployeeService(EmployeeRepository employeeRepository
+            , DepartmentRepository departmentRepository) {
+        this.employeeRepository = employeeRepository;
+        this.departmentRepository = departmentRepository;
     }
 
-    public List<Map<String, Object>> getEmployeesData() {
-        return jdbcTemplate.queryForList(GET_EMPLOYEES_DATA_QUERY);
+    public List<EmployeeDTO> getEmployeesData() {
+        Iterable<Employee> employeeIterable = employeeRepository.getAllEmployees();
+        List<EmployeeDTO> employeeList = new ArrayList<>();
+
+        for (Employee employee : employeeIterable) {
+            EmployeeDTO dto = EmployeeDTO.toDTO(employee,
+                    departmentRepository.getDepartmentNameById(employee.getDepartmentIt()));
+            employeeList.add(dto);
+
+        }
+        return employeeList;
+    }
+
+    public List<EmployeeDTO> searchEmployee(String searchTerm) {
+        Iterable<Employee> employeeIterable =
+                employeeRepository.searchEmployees("%" + searchTerm + "%");
+        List<EmployeeDTO> employeeList = new ArrayList<>();
+
+        for (Employee employee : employeeIterable) {
+            EmployeeDTO dto = EmployeeDTO.toDTO(employee,
+                    departmentRepository.getDepartmentNameById(employee.getDepartmentIt()));
+            employeeList.add(dto);
+        }
+        return employeeList;
     }
 
     public void addEmployee(Map<String, String> formData, int departmentId) {
-        jdbcTemplate.update(ADD_EMPLOYEES_DATA,
-            formData.get("em_name"),
-            formData.get("em_position"),
-            departmentId,
-            formData.get("em_salary"),
-            formData.get("em_hire_date")
-        );
+
+        String employeeName = formData.get("em_name");
+        String employeePosition = formData.get("em_position");
+        String employeeSalary = formData.get("em_salary");
+        String employeeHireDate = formData.get("em_hire_date");
+
+        employeeRepository.addNewEmployee(
+                employeeName,
+                employeePosition,
+                departmentId,
+                Double.parseDouble(employeeSalary),
+                LocalDate.parse(employeeHireDate));
     }
 
 

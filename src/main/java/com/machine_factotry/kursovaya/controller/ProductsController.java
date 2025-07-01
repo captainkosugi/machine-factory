@@ -1,5 +1,6 @@
 package com.machine_factotry.kursovaya.controller;
 
+import com.machine_factotry.kursovaya.dto.ProductDTO;
 import com.machine_factotry.kursovaya.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,13 +22,13 @@ public class ProductsController {
     public String products(
             @RequestParam(name = "search", required = false) String searchTerm,
             Model model) {
-        List<Map<String, Object>> productCategory = productsService.getProductsCategory();
+        List<String> productCategory = productsService.getProductsCategory();
         model.addAttribute("categories", productCategory);
 
-        List<Map<String, Object>> productStatus = productsService.getProductStatus();
+        List<String> productStatus = productsService.getProductStatus();
         model.addAttribute("statuses", productStatus);
 
-        List<Map<String, Object>> products;
+        List<ProductDTO> products;
         if (searchTerm != null && !searchTerm.isEmpty()) {
             products = productsService.searchProducts(searchTerm);
         } else {

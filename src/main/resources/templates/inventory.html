@@ -90,11 +90,11 @@
                             </thead>
                             <tbody>
                             <tr th:each="invent : ${inventory}">
-                                <td th:text="${invent[id]}"></td>
-                                <td th:text="${invent[p_name]}"></td>
-                                <td th:text="${invent[gm_type]}"></td>
-                                <td th:text="${invent[move_quantity]}"></td>
-                                <td th:text="${invent[move_date]}"></td>
+                                <td th:text="${invent.movementId}"></td>
+                                <td th:text="${invent.productName}"></td>
+                                <td th:text="${invent.movementType}"></td>
+                                <td th:text="${invent.quantity}"></td>
+                                <td th:text="${invent.movementDate}"></td>
                                 <td>
                                     <button class="action-btn edit">Изменить</button>
                                     <button class="action-btn delete">Удалить</button>

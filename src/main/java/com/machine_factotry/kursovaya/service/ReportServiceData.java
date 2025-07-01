@@ -22,7 +22,7 @@ public class ReportServiceData {
 
     private static final String GET_PLAN_PRODUCTION_VOLUME =
             """
-            select round(count(p.product_name), 0) * 50 from products p\s
+            select round(count(p.product_name), 0) * 50 from products p
             """;
 
     private static final String GET_PLAN_MARKETABLE_PRODUCTS =

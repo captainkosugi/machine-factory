@@ -1,6 +1,8 @@
 package com.machine_factotry.kursovaya.controller;
 
 
+import com.machine_factotry.kursovaya.dto.DepartmentDTO;
+import com.machine_factotry.kursovaya.dto.EmployeeDTO;
 import com.machine_factotry.kursovaya.service.DepartmentService;
 import com.machine_factotry.kursovaya.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +18,23 @@ import java.util.Map;
 @Controller
 public class EmployeeController {
 
+    private final EmployeeService employeeService;
+    private final DepartmentService departmentService;
+
     @Autowired
-    EmployeeService employeeService;
-    @Autowired
-    DepartmentService departmentService;
+    public EmployeeController(EmployeeService employeeService, DepartmentService departmentService) {
+        this.employeeService = employeeService;
+        this.departmentService = departmentService;
+    }
 
     @GetMapping("/employees")
     public String employees(
             @RequestParam(name = "search", required = false) String searchTerm,
             Model model) {
-        List<Map<String, Object>> departments = departmentService.getDepartmentsData();
+        List<DepartmentDTO> departments = departmentService.getDepartmentsData();
         model.addAttribute("departments", departments);
 
-        List<Map<String, Object>> employees;
+        List<EmployeeDTO> employees;
         if (searchTerm != null && !searchTerm.isEmpty()) {
             employees = employeeService.searchEmployee(searchTerm);
         }else {

@@ -1,5 +1,7 @@
 package com.machine_factotry.kursovaya.controller;
 
+import com.machine_factotry.kursovaya.dto.DepartmentDTO;
+import com.machine_factotry.kursovaya.dto.EquipmentDTO;
 import com.machine_factotry.kursovaya.service.DepartmentService;
 import com.machine_factotry.kursovaya.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +26,13 @@ public class EquipmentController {
     public String equipment(
             @RequestParam(name = "search", required = false) String searchTerm,
             Model model) {
-        List<Map<String, Object>> departments = departmentService.getDepartmentsData();
+        List<DepartmentDTO> departments = departmentService.getDepartmentsData();
         model.addAttribute("departments", departments);
 
-        List<Map<String, Object>> equipmentStatus = equipmentService.getEquipmentStatusData();
+        List<String> equipmentStatus = equipmentService.getEquipmentStatusData();
         model.addAttribute("statuses", equipmentStatus);
 
-        List<Map<String, Object>> equipments;
+        List<EquipmentDTO> equipments;
         if (searchTerm != null && !searchTerm.isEmpty()) {
             equipments = equipmentService.searchEquipment(searchTerm);
         } else {

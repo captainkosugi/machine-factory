@@ -54,8 +54,8 @@
                                             <select id="product-category" name="p_category" required>
                                                 <option value="">Выберите категорию</option>
                                                 <option th:each="category : ${categories}"
-                                                        th:value="${category[category_name]}"
-                                                        th:text="${category[category_name]}">
+                                                        th:value="${category}"
+                                                        th:text="${category}">
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -71,8 +71,8 @@
                                             <select id="product-status" name="p_status" required>
                                                 <option value="">Выберите статус</option>
                                                 <option th:each="status : ${statuses}"
-                                                        th:value="${status[product_status]}"
-                                                        th:text="${status[product_status]}">
+                                                        th:value="${status}"
+                                                        th:text="${status}">
                                             </select>
                                         </div>
                                         <div class="form-actions">
@@ -101,15 +101,15 @@
                             </thead>
                             <tbody>
                             <tr th:each="product : ${products}">
-                                <td th:text="${product[p_id]}"></td>
-                                <td th:text="${product[p_name]}"></td>
-                                <td th:text="${product[p_category]}"></td>
-                                <td th:text="${product[p_price]}"></td>
-                                <td th:text="${product[p_quantity]}"></td>
+                                <td th:text="${product.productId}"></td>
+                                <td th:text="${product.productName}"></td>
+                                <td th:text="${product.productCategory}"></td>
+                                <td th:text="${product.productPrice}"></td>
+                                <td th:text="${product.quantity}"></td>
                                 <td>
-                                    <span th:class="'status ' + ${product[p_status] == 'В наличии' ? 'active' :
-                                                    (product[p_status] == 'Нет в наличии' ? 'broken' : '')}">
-                                        <span th:text="${product[p_status]}"></span>
+                                    <span th:class="'status ' + ${product.productStatus == 'В наличии' ? 'active' :
+                                                    (product.productStatus == 'Нет в наличии' ? 'broken' : '')}">
+                                        <span th:text="${product.productStatus}"></span>
                                     </span>
                                 </td>
                                 <td>

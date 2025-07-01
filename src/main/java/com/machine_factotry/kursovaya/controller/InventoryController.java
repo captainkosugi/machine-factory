@@ -1,5 +1,6 @@
 package com.machine_factotry.kursovaya.controller;
 
+import com.machine_factotry.kursovaya.dto.GoodsMovementDTO;
 import com.machine_factotry.kursovaya.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ public class InventoryController {
     public String inventory(
             @RequestParam(name = "search", required = false) String searchTerm,
             Model model) {
-        List<Map<String, Object>> inventoryData;
+        List<GoodsMovementDTO> inventoryData;
         if (searchTerm != null && !searchTerm.isEmpty()) {
             inventoryData = inventoryService.searchMovement(searchTerm);
         } else {
@@ -35,7 +36,7 @@ public class InventoryController {
 
     @PostMapping("/add-movement")
     public String addMovement(@RequestParam Map<String, String> formData) {
-        int partnerId = inventoryService.partnerId(formData);
+        long partnerId = inventoryService.partnerId(formData);
         int productId = inventoryService.productId(formData.get("movement_name"));
 
         inventoryService.addMovement(formData, partnerId, productId);

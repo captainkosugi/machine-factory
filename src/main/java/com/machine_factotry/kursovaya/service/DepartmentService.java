@@ -1,28 +1,36 @@
 package com.machine_factotry.kursovaya.service;
 
+import com.machine_factotry.kursovaya.dto.DepartmentDTO;
+import com.machine_factotry.kursovaya.entity.Department;
+import com.machine_factotry.kursovaya.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class DepartmentService {
+
+    private final DepartmentRepository departmentRepository;
+
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    public DepartmentService(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
+    }
 
-    private static final String GET_DEPARTMENTS_DATA =
-            "select id as d_id, department_name as d_name from departments";
+    public List<DepartmentDTO> getDepartmentsData() {
+        Iterable<Department> departmentIterable =  departmentRepository.getAllDepartments();
+        List<DepartmentDTO> departmentList = new ArrayList<>();
 
-    private static final String GET_DEPARTMENT_BY_NAME =
-            "select id from departments where department_name = ?";
-
-    public List<Map<String, Object>> getDepartmentsData() {
-        return jdbcTemplate.queryForList(GET_DEPARTMENTS_DATA);
+        for (Department department : departmentIterable) {
+            DepartmentDTO dto = DepartmentDTO.toDTO(department);
+            departmentList.add(dto);
+        }
+        return departmentList;
     }
 
     public Integer getDepartmentIdByName(String departmentName) {
-        return jdbcTemplate.queryForObject(GET_DEPARTMENT_BY_NAME, Integer.class, departmentName);
+        return departmentRepository.getDepartmentIdByName(departmentName);
     }
 }

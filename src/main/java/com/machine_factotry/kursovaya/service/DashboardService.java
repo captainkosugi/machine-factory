@@ -1,7 +1,8 @@
 package com.machine_factotry.kursovaya.service;
 
+import com.machine_factotry.kursovaya.repository.DashboardRepository;
+import com.machine_factotry.kursovaya.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -10,30 +11,30 @@ import java.util.Map;
 @Service
 public class DashboardService {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+    private final DashboardRepository dashboardRepository;
+    private final EmployeeRepository employeeRepository;
 
-    private static final String GET_EMPLOYEE_COUNT = "select count(*) from employees";
-    private static final String GET_EQUIPMENT_COUNT = "select count(*) from equipment";
-    private static final String GET_PRODUCTS_COUNT = "select sum(p.quantity) from products p";
-    private static final String GET_PARTNERS_COUNT = """
-    select count(*) + (select count(*) from customers c) from suppliers s
-    """;
+    @Autowired
+    public DashboardService(DashboardRepository dashboardRepository,
+                            EmployeeRepository employeeRepository) {
+        this.dashboardRepository = dashboardRepository;
+        this.employeeRepository = employeeRepository;
+    }
 
     private int getEmployeeCount() {
-        return jdbcTemplate.queryForObject(GET_EMPLOYEE_COUNT, Integer.class);
+        return employeeRepository.getCountEmployees();
     }
 
     private int getEquipmentCount() {
-        return jdbcTemplate.queryForObject(GET_EQUIPMENT_COUNT, Integer.class);
+        return dashboardRepository.getCountEquipment();
     }
 
     private int getProductsCount() {
-        return jdbcTemplate.queryForObject(GET_PRODUCTS_COUNT, Integer.class);
+        return dashboardRepository.getProductsCount();
     }
 
     private int getPartnersCount() {
-        return jdbcTemplate.queryForObject(GET_PARTNERS_COUNT, Integer.class);
+        return dashboardRepository.getPartnersCount();
     }
 
     public Map<String, Integer> getDashboardData() {

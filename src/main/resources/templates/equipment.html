@@ -57,8 +57,8 @@
                                             <select id="equipment-workshop" name="departmentName" required>
                                                 <option value="">Выберите отдел</option>
                                                 <option th:each="department : ${departments}"
-                                                        th:value="${department[d_name]}"
-                                                        th:text="${department[d_name]}">
+                                                        th:value="${department.department_name}"
+                                                        th:text="${department.department_name}">
                                                 </option>
                                             </select>
                                         </div>
@@ -67,8 +67,8 @@
                                             <select id="equipment-status" name="eq_status" required>
                                                 <option value="">Выберите статус</option>
                                                 <option th:each="status : ${statuses}"
-                                                        th:value="${status[e_status]}"
-                                                        th:text="${status[e_status]}">
+                                                        th:value="${status}"
+                                                        th:text="${status}">
                                                 </option>
                                             </select>
                                         </div>
@@ -102,18 +102,18 @@
                             </thead>
                             <tbody>
                             <tr th:each="equipmen : ${equipment}">
-                                <td th:text="${equipmen[e_id]}"></td>
-                                <td th:text="${equipmen[e_name]}"></td>
-                                <td th:text="${equipmen[e_type]}"></td>
-                                <td th:text="${equipmen[d_name]}"></td>
+                                <td th:text="${equipmen.id}"></td>
+                                <td th:text="${equipmen.equipmentName}"></td>
+                                <td th:text="${equipmen.equipmentType}"></td>
+                                <td th:text="${equipmen.departmentName}"></td>
                                 <td>
-                                    <span th:class="'status ' +  ${equipmen[e_status] == 'Активен' ? 'active' :
-                                       (equipmen[e_status] == 'На обслуживании' ? 'maintenance' :
-                                       (equipmen[e_status] == 'Не исправен' ? 'broken' : ''))}">
-                                        <span th:text="${equipmen[e_status]}"></span>
+                                    <span th:class="'status ' +  ${equipmen.equipmentStatus == 'Активен' ? 'active' :
+                                       (equipmen.equipmentStatus == 'На обслуживании' ? 'maintenance' :
+                                       (equipmen.equipmentStatus == 'Не исправен' ? 'broken' : ''))}">
+                                        <span th:text="${equipmen.equipmentStatus}"></span>
                                     </span>
                                 </td>
-                                <td th:text="${equipmen[i_date]}"></td>
+                                <td th:text="${equipmen.installationDate}"></td>
                                 <td>
                                     <button class="action-btn edit">Изменить</button>
                                     <button class="action-btn delete">Удалить</button>

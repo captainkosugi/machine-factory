@@ -57,8 +57,8 @@
                                             <select id="employee-department" name="departmentName" required>
                                                 <option value="Выберите отдел">Выберите отдел</option>
                                                 <option th:each="department : ${departments}"
-                                                        th:value="${department[d_name]}"
-                                                        th:text="${department[d_name]}">
+                                                        th:value="${department.department_name}"
+                                                        th:text="${department.department_name}">
                                                 </option>
                                             </select>
                                         </div>
@@ -96,12 +96,12 @@
                             </thead>
                             <tbody>
                             <tr th:each="employee : ${employees}">
-                                <td th:text="${employee[id]}"></td>
-                                <td th:text="${employee[name]}"></td>
-                                <td th:text="${employee[position]}"></td>
-                                <td th:text="${employee[dp_name]}"></td>
-                                <td th:text="${employee[salary]}"></td>
-                                <td th:text="${employee[ddate]}"></td>
+                                <td th:text="${employee.id}"></td>
+                                <td th:text="${employee.name}"></td>
+                                <td th:text="${employee.position}"></td>
+                                <td th:text="${employee.departmentName}"></td>
+                                <td th:text="${employee.salary}"></td>
+                                <td th:text="${employee.hireDate}"></td>
                                 <td>
                                     <button class="action-btn edit">Изменить</button>
                                     <button class="action-btn delete">Удалить</button>
