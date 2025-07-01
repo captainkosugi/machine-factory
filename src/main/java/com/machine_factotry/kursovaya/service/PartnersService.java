@@ -15,9 +15,6 @@ import java.util.Map;
 @Service
 public class PartnersService {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-
     private final CustomerRepository customerRepository;
     private final SupplierRepository supplierRepository;
     private final PartnerRepository partnerRepository;

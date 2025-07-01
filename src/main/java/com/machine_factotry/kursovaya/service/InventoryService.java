@@ -6,6 +6,7 @@ import com.machine_factotry.kursovaya.repository.CustomerRepository;
 import com.machine_factotry.kursovaya.repository.InventoryRepository;
 import com.machine_factotry.kursovaya.repository.ProductRepository;
 import com.machine_factotry.kursovaya.repository.SupplierRepository;
+import com.machine_factotry.kursovaya.util.DtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -61,16 +62,15 @@ public class InventoryService {
                 LocalDate.parse(formData.get("movement_date")));
     }
 
+    private GoodsMovementDTO convertToDto(GoodsMovement goodsMovement) {
+        String productName = productRepository.getProductName(goodsMovement.getProductId());
+        return GoodsMovementDTO.toDTO(goodsMovement, productName);
+    }
+
     public List<GoodsMovementDTO> getInventoryData() {
-        Iterable<GoodsMovement> goodsMovementIterable =
-                inventoryRepository.getAllInventoryData();
-        List<GoodsMovementDTO> goodsMovementList = new ArrayList<>();
-        for (GoodsMovement movement : goodsMovementIterable) {
-            GoodsMovementDTO dto = GoodsMovementDTO
-                    .toDTO(movement, productRepository
-                            .getProductName(movement.getProductId()));
-            goodsMovementList.add(dto);
-        }
-        return goodsMovementList;
+        return DtoConverter.convert(
+                inventoryRepository.getAllInventoryData(),
+                this::convertToDto
+        );
     }
 }
