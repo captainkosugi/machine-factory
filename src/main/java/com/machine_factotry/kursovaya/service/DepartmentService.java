@@ -14,7 +14,7 @@ public class DepartmentService {
 
     private final DepartmentRepository departmentRepository;
 
-    @Autowired
+
     public DepartmentService(DepartmentRepository departmentRepository) {
         this.departmentRepository = departmentRepository;
     }

@@ -19,7 +19,7 @@ public class EquipmentService {
     private final EquipmentRepository equipmentRepository;
     private final DepartmentRepository departmentRepository;
 
-    @Autowired
+
     public EquipmentService(EquipmentRepository equipmentRepository,
                             DepartmentRepository departmentRepository) {
         this.equipmentRepository = equipmentRepository;

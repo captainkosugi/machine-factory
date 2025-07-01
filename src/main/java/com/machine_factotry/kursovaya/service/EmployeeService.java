@@ -19,7 +19,7 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
 
-    @Autowired
+
     public EmployeeService(EmployeeRepository employeeRepository
             , DepartmentRepository departmentRepository) {
         this.employeeRepository = employeeRepository;

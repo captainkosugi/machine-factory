@@ -15,8 +15,12 @@ import java.util.Map;
 @Controller
 public class ProductsController {
 
-    @Autowired
-    ProductsService productsService;
+    private final ProductsService productsService;
+
+
+    public ProductsController(ProductsService productsService) {
+        this.productsService = productsService;
+    }
 
     @GetMapping("/products")
     public String products(

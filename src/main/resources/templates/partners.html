@@ -90,11 +90,11 @@
                             </thead>
                             <tbody>
                             <tr th:each="partner : ${partners}">
-                                <td th:text="${partner[unique_id]}"></td>
-                                <td th:text="${partner[partner_name]}"></td>
-                                <td th:text="${partner[partner_type]}"></td>
-                                <td th:text="${partner[phone]}"></td>
-                                <td th:text="${partner[email]}"></td>
+                                <td th:text="${partner.uniqueId}"></td>
+                                <td th:text="${partner.partnerName}"></td>
+                                <td th:text="${partner.partnerType}"></td>
+                                <td th:text="${partner.phone}"></td>
+                                <td th:text="${partner.email}"></td>
                                 <td>
                                     <button class="action-btn edit">Изменить</button>
                                     <button class="action-btn delete">Удалить</button>

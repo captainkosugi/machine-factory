@@ -26,7 +26,7 @@ public class InventoryService {
     private final SupplierRepository supplierRepository;
     private final CustomerRepository customerRepository;
 
-    @Autowired
+
     public InventoryService(InventoryRepository inventoryRepository,
                             ProductRepository productRepository,
                             SupplierRepository supplierRepository,

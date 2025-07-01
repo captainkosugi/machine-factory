@@ -15,8 +15,12 @@ import java.io.IOException;
 @Controller
 public class ReportsController {
 
-    @Autowired
-    ReportsService reportsService;
+    private final ReportsService reportsService;
+
+
+    public ReportsController(ReportsService reportsService) {
+        this.reportsService = reportsService;
+    }
 
     @GetMapping("/reports")
     public String reports() {

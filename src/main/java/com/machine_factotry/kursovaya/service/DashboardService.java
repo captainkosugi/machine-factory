@@ -14,7 +14,7 @@ public class DashboardService {
     private final DashboardRepository dashboardRepository;
     private final EmployeeRepository employeeRepository;
 
-    @Autowired
+
     public DashboardService(DashboardRepository dashboardRepository,
                             EmployeeRepository employeeRepository) {
         this.dashboardRepository = dashboardRepository;
