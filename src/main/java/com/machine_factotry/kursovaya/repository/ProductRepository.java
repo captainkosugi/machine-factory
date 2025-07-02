@@ -87,6 +87,10 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
             """)
     void updateProductsData();
 
+    @Modifying
+    @Query("delete from products where product_id = :productId")
+    void deleteProduct(@Param("productId") long productId);
+
     // Queries for goods movement("/inventory")
     @Query("select p.product_name from products p where p.product_id = :productId")
     String getProductName(@Param("productId") int productId);

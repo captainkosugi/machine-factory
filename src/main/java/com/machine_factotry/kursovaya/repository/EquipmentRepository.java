@@ -54,4 +54,8 @@ public interface EquipmentRepository extends CrudRepository<Equipment, Long> {
             @Param("department_it") int departmentId,
             @Param("equipment_status") String equipmentStatus,
             @Param("installation_date")LocalDate installationDate);
+
+    @Modifying
+    @Query("delete from equipment where equipment_id = :equipmentId")
+    void deleteEquipment(@Param("equipmentId") long equipmentId);
 }

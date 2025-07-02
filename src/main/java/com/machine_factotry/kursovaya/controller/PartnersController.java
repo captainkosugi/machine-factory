@@ -44,4 +44,11 @@ public class PartnersController {
         partnersService.addPartner(formData);
         return "redirect:/partners";
     }
+
+    @PostMapping("/delete-partner")
+    public String deletePartner(@RequestParam("partnerName") String partnerName,
+                                @RequestParam("partnerType") String partnerType) {
+        partnersService.deletePartner(partnerName, partnerType);
+        return "redirect:/partners";
+    }
 }

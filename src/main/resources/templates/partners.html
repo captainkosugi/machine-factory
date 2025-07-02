@@ -96,8 +96,14 @@
                                 <td th:text="${partner.phone}"></td>
                                 <td th:text="${partner.email}"></td>
                                 <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
+                                    <form th:action="@{/delete-partner}" method="post" class="delete-form">
+                                        <input type="hidden" name="partnerName" th:value="${partner.partnerName}">
+                                        <input type="hidden" name="partnerType" th:value="${partner.partnerType}">
+                                        <button type="submit" class="action-btn delete"
+                                                onclick="return confirm('Подтвердите действие!')">
+                                            Удалить
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             </tbody>

@@ -115,8 +115,13 @@
                                 </td>
                                 <td th:text="${equipmen.installationDate}"></td>
                                 <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
+                                    <form th:action="@{/delete-equipment}" method="post" class="delete-form">
+                                        <input type="hidden" name="id" th:value="${equipmen.id}">
+                                        <button type="submit" class="action-btn delete"
+                                                onclick="return confirm('Подтвердите действие!')">
+                                            Удалить
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             </tbody>

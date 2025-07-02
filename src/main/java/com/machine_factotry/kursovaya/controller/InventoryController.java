@@ -47,4 +47,10 @@ public class InventoryController {
         inventoryService.addMovement(formData, partnerId, productId);
         return "redirect:/inventory";
     }
+
+    @PostMapping("/delete-movement")
+    public String deleteMovement(@RequestParam("id") long id) {
+        inventoryService.deleteMovement(id);
+        return "redirect:/inventory";
+    }
 }

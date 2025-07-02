@@ -54,4 +54,10 @@ public class EmployeeController {
         employeeService.addEmployee(formData, getDepartmentId);
         return "redirect:/employees";
     }
+
+    @PostMapping("/delete-employee")
+    public String deleteEmployee(@RequestParam("id") long id) {
+        employeeService.deleteEmployee(id);
+        return "redirect:employees";
+    }
 }

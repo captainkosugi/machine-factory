@@ -55,6 +55,10 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
                         @Param("salary") double salary,
                         @Param("ddate") LocalDate ddate);
 
+    @Modifying
+    @Query("delete from employees where employee_id = :employeeId")
+    void deleteEmployee(@Param("employeeId") long employeeId);
+
 
     // query for dashboard
     @Query("select count(*) from employees")

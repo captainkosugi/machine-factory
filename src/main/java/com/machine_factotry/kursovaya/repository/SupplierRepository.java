@@ -24,4 +24,11 @@ public interface SupplierRepository extends CrudRepository<Supplier, Long> {
             @Param("email") String email
     );
 
+    @Modifying
+    @Query("""
+            delete from suppliers where supplier_id =
+            (select supplier_id from suppliers where supplier_name  = :supplierName)
+            """)
+    void deleteSupplier(@Param("supplierName") String supplierName);
+
 }

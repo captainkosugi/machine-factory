@@ -60,4 +60,8 @@ public class ProductsService {
             Integer.parseInt(formData.get("p_count"))
         );
     }
+
+    public void deleteProduct(long id) {
+        productRepository.deleteProduct(id);
+    }
 }

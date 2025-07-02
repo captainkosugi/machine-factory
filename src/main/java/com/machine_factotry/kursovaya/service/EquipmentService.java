@@ -64,6 +64,10 @@ public class EquipmentService {
         );
     }
 
+    public void deleteEquipment(long id) {
+        equipmentRepository.deleteEquipment(id);
+    }
+
     public List<String> getEquipmentStatusData() {
         return equipmentRepository.getEquipmentStatus();
     }
