@@ -4,8 +4,6 @@ import com.machine_factotry.kursovaya.dto.DepartmentDTO;
 import com.machine_factotry.kursovaya.dto.EquipmentDTO;
 import com.machine_factotry.kursovaya.service.DepartmentService;
 import com.machine_factotry.kursovaya.service.EquipmentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

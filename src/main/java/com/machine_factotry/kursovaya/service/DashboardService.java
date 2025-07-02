@@ -2,7 +2,6 @@ package com.machine_factotry.kursovaya.service;
 
 import com.machine_factotry.kursovaya.repository.DashboardRepository;
 import com.machine_factotry.kursovaya.repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

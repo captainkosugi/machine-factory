@@ -5,11 +5,11 @@ import com.machine_factotry.kursovaya.entity.Equipment;
 import com.machine_factotry.kursovaya.repository.DepartmentRepository;
 import com.machine_factotry.kursovaya.repository.EquipmentRepository;
 import com.machine_factotry.kursovaya.util.DtoConverter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +17,7 @@ import java.util.Map;
 @Service
 public class EquipmentService {
 
+    private static final Logger log = LoggerFactory.getLogger(EquipmentService.class);
     private final EquipmentRepository equipmentRepository;
     private final DepartmentRepository departmentRepository;
 
@@ -36,6 +37,7 @@ public class EquipmentService {
     }
 
     public List<EquipmentDTO> searchEquipment(String searchTerm) {
+        log.info("Processing equipment search for {}...", searchTerm);
         return DtoConverter.convert(
                 equipmentRepository.searchEquipment("%"+searchTerm+"%"),
                 this::convertToDto
@@ -43,6 +45,7 @@ public class EquipmentService {
     }
 
     public List<EquipmentDTO> getEquipmentData() {
+        log.info("Getting equipments data...");
         return DtoConverter.convert(
                 equipmentRepository.getEquipmentData(),
                 this::convertToDto
@@ -55,6 +58,7 @@ public class EquipmentService {
         String equipmentStatus = formData.get("eq_status");
         String installationDate =  formData.get("installation_date");
 
+        log.info("Adding new equipment {}...", equipmentName);
         equipmentRepository.addEquipment(
                 equipmentName,
                 equipmentType,
@@ -65,6 +69,7 @@ public class EquipmentService {
     }
 
     public void deleteEquipment(long id) {
+        log.info("Deleting equipment with id: {}", id);
         equipmentRepository.deleteEquipment(id);
     }
 
