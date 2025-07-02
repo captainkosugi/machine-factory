@@ -63,5 +63,9 @@ public class EmployeeService {
                 LocalDate.parse(employeeHireDate));
     }
 
+    public void deleteEmployee(long id) {
+        employeeRepository.deleteEmployee(id);
+    }
+
 
 }

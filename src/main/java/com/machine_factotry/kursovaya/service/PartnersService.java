@@ -45,6 +45,14 @@ public class PartnersService {
         }
     }
 
+    public void deletePartner(String partnerName, String partnerType) {
+        if (partnerType.equals("Покупатель")) {
+            customerRepository.deleteCustomer(partnerName);
+        } else {
+            supplierRepository.deleteSupplier(partnerName);
+        }
+    }
+
     public List<PartnerDTO> getPartnersData() {
         return partnerRepository.getAllPartners();
     }

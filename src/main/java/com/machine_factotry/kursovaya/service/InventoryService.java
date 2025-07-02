@@ -62,6 +62,10 @@ public class InventoryService {
                 LocalDate.parse(formData.get("movement_date")));
     }
 
+    public void deleteMovement(long id) {
+        inventoryRepository.deleteMovement(id);
+    }
+
     private GoodsMovementDTO convertToDto(GoodsMovement goodsMovement) {
         String productName = productRepository.getProductName(goodsMovement.getProductId());
         return GoodsMovementDTO.toDTO(goodsMovement, productName);

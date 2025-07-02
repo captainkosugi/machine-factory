@@ -23,4 +23,11 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
             @Param("phone") String phone,
             @Param("email") String email
     );
+
+    @Modifying
+    @Query("""
+           delete from customers where customer_id =
+           (select customer_id from customers where customer_name = :customerName)
+           """)
+    void deleteCustomer(@Param("customerName") String customerName);
 }

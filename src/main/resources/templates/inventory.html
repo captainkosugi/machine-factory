@@ -96,8 +96,13 @@
                                 <td th:text="${invent.quantity}"></td>
                                 <td th:text="${invent.movementDate}"></td>
                                 <td>
-                                    <button class="action-btn edit">Изменить</button>
-                                    <button class="action-btn delete">Удалить</button>
+                                    <form th:action="@{/delete-movement}" method="post" class="delete-form">
+                                        <input type="hidden" name="id" th:value="${invent.movementId}">
+                                        <button type="submit" class="action-btn delete"
+                                                onclick="return confirm('Подтвердите действие!')">
+                                            Удалить
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             </tbody>

@@ -49,4 +49,8 @@ public interface InventoryRepository extends CrudRepository<GoodsMovement, Long>
             @Param("quantity") int quantity,
             @Param("movementDate") LocalDate movementDate
             );
+
+    @Modifying
+    @Query("delete from goods_movement where movement_id = :movementId")
+    void deleteMovement(@Param("movementId") long movementId);
 }

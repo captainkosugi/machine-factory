@@ -49,4 +49,10 @@ public class ProductsController {
         productsService.addProduct(formData);
         return "redirect:/products";
     }
+
+    @PostMapping("/delete-product")
+    public String deleteProduct(@RequestParam("id") long id) {
+        productsService.deleteProduct(id);
+        return "redirect:/products";
+    }
 }
