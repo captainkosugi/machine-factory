@@ -7,21 +7,20 @@ import com.machine_factotry.kursovaya.repository.InventoryRepository;
 import com.machine_factotry.kursovaya.repository.ProductRepository;
 import com.machine_factotry.kursovaya.repository.SupplierRepository;
 import com.machine_factotry.kursovaya.util.DtoConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class InventoryService {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-
+    private static final Logger log = LoggerFactory.getLogger(InventoryService.class);
     private final InventoryRepository inventoryRepository;
     private final ProductRepository productRepository;
     private final SupplierRepository supplierRepository;
@@ -39,6 +38,7 @@ public class InventoryService {
     }
 
     public List<GoodsMovementDTO> searchMovement(String searchTerm) {
+        log.info("Processing movement search for {}...", searchTerm);
         return inventoryRepository.searchInventoryData("%"+searchTerm+"%");
     }
 
@@ -54,6 +54,7 @@ public class InventoryService {
     }
 
     public void addMovement(Map<String, String> formData, long partnerId, int productId) {
+        log.info("Adding new movement {}...", formData.get("movement_name"));
         inventoryRepository.addMovement(
                 productId,
                 partnerId,
@@ -63,6 +64,7 @@ public class InventoryService {
     }
 
     public void deleteMovement(long id) {
+        log.info("Deleting movement with id: {}...", id);
         inventoryRepository.deleteMovement(id);
     }
 
@@ -72,6 +74,7 @@ public class InventoryService {
     }
 
     public List<GoodsMovementDTO> getInventoryData() {
+        log.info("Getting movement data...");
         return DtoConverter.convert(
                 inventoryRepository.getAllInventoryData(),
                 this::convertToDto

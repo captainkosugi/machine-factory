@@ -1,6 +1,8 @@
 package com.machine_factotry.kursovaya.service;
 
 import com.itextpdf.html2pdf.HtmlConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
@@ -14,10 +16,14 @@ import java.util.Map;
 @Service
 public class ReportsService {
 
-    @Autowired
-    SpringTemplateEngine templateEngine;
-    @Autowired
-    ReportServiceData serviceData;
+    private static final Logger log = LoggerFactory.getLogger(ReportsService.class);
+    private final SpringTemplateEngine templateEngine;
+    private final ReportServiceData serviceData;
+
+    public ReportsService(SpringTemplateEngine templateEngine, ReportServiceData serviceData) {
+        this.templateEngine = templateEngine;
+        this.serviceData = serviceData;
+    }
 
     public byte[] generateManufacturingReport() throws IOException {
         Map<String, Object> data = new HashMap<>();
@@ -42,6 +48,7 @@ public class ReportsService {
         String htmlContent = templateEngine
                 .process("reports/manufacturing_report.html", context);
 
+        log.info("Generating manufacturing report...");
         return convertHtmlToPdf(htmlContent);
     }
 

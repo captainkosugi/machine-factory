@@ -4,10 +4,8 @@ import com.machine_factotry.kursovaya.dto.DepartmentDTO;
 import com.machine_factotry.kursovaya.entity.Department;
 import com.machine_factotry.kursovaya.repository.DepartmentRepository;
 import com.machine_factotry.kursovaya.util.DtoConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
