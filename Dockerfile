@@ -1,4 +1,11 @@
+FROM maven:3.9.9-amazoncorretto-17-alpine AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+
 FROM amazoncorretto:17.0.15-alpine
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+WORKDIR /app
+COPY --from=build /app/target/*jar app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
